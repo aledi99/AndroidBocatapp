@@ -23,13 +23,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
 
     private static Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl("http://localhost:9000")
+            .baseUrl("https://bocatapi.herokuapp.com")
             .addConverterFactory(GsonConverterFactory.create());
     public static Retrofit retrofit = builder.build();
 
     EditText email,password;
     Button btnLogin;
-    String clientId ="bocatapp-rule-5",grant_type = "password";
+    String clientId ="bocatapp-rule-5",grant_type = "password", authorization = "Basic Ym9jYXRhcHAtcnVsZS01OnNlY3JldA==";
     ImageView logo;
 
     @Override
@@ -51,7 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                         clientId,
                         email.getText().toString(),
                         password.getText().toString(),
-                        grant_type
+                        grant_type,
+                        authorization
 
                 );
             }
@@ -61,20 +62,28 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void executeLoginForm(String clientId, String username, String pswd, String password){
+    private void executeLoginForm(String clientId, String username, String pswd, String password,String authorization){
         AppService appService = retrofit.create(AppService.class);
 
         Call<ResponseBody> call = appService.login(
                 clientId,
                 username,
                 pswd,
-                password
+                password,
+                authorization
         );
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(LoginActivity.this, "succes", Toast.LENGTH_SHORT).show();
+                if(response.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "logeado correctamente", Toast.LENGTH_SHORT).show();
+                    //Intent i = new Intent(LoginActivity.this,RegisterActivity.class);
+                    //startActivity(i);
+                }else{
+                    Toast.makeText(LoginActivity.this, "Email y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+
+                }
             }
 
             @Override

@@ -40,11 +40,11 @@ public class ServiceGenerator {
 
     public static Retrofit retrofit = null;
 
-    public static <S> S createService(Class<S> serviceClass) {
+    /*public static <S> S createService(Class<S> serviceClass) {
         return createService(serviceClass, null, null);
     }
 
-    public static <S> S createService(Class<S> serviceClass, String username, String password){
+    /*public static <S> S createService(Class<S> serviceClass, String username, String password){
         if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)){
             String authToken = Credentials.basic(username, password);
             return createService(serviceClass, authToken);
@@ -53,11 +53,11 @@ public class ServiceGenerator {
         return createService(serviceClass, null);
     }
 
-    public static <S> S createService(Class<S> serviceClass, final String authToken){
+    /*public static <S> S createService(Class<S> serviceClass, final String authToken){
         if(!TextUtils.isEmpty(authToken)){
-            AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
+            //AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
 
-            if(!httpClient.interceptors().contains(interceptor)){
+            /*if(!httpClient.interceptors().contains(interceptor)){
                 OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
                 httpClientBuilder.addInterceptor(new Interceptor() {
                     @NotNull
@@ -87,7 +87,7 @@ public class ServiceGenerator {
         }
 
         return retrofit.create(serviceClass);
-    }
+    }*/
 
 
 
