@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.salesianostriana.dam.LocalCercaniaFragment.OnListFragmentInteractionListener;
+import com.salesianostriana.dam.LocalFavoritosFragment.OnListFragmentInteractionListener;
 import com.salesianostriana.dam.dummy.DummyContent.DummyItem;
 
 import java.util.List;
@@ -17,12 +17,12 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyLocalCercaniaRecyclerViewAdapter extends RecyclerView.Adapter<MyLocalCercaniaRecyclerViewAdapter.ViewHolder> {
+public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyLocalCercaniaRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyItemRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,13 +30,14 @@ public class MyLocalCercaniaRecyclerViewAdapter extends RecyclerView.Adapter<MyL
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_local_cercania, parent, false);
+                .inflate(R.layout.fragment_local_favoritos, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
+        holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -58,12 +59,14 @@ public class MyLocalCercaniaRecyclerViewAdapter extends RecyclerView.Adapter<MyL
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
+        public final TextView mIdView;
         public final TextView mContentView;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
         }
 

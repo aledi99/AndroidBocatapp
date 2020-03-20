@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "logeado correctamente", Toast.LENGTH_SHORT).show();
-                    //Intent i = new Intent(LoginActivity.this,RegisterActivity.class);
+                    //Intent i = new Intent(LoginActivity.this,MainActivity.class);
                     //startActivity(i);
                 }else{
                     Toast.makeText(LoginActivity.this, "Email y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
