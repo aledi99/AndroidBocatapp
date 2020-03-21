@@ -10,4 +10,7 @@
     <string name="password">Contraseña</string>
     <string name="re_password">Repetir Contraseña</string>
     <string name="age">Edad</string>
+    <string name="order">PEDIDO</string>
+    <string name="total">TOTAL</string>
+    <string name="payment">PAGO</string>
 </resources>
