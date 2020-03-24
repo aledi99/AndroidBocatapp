@@ -12,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.salesianostriana.dam.dummy.DummyContent;
-import com.salesianostriana.dam.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
@@ -71,7 +69,7 @@ public class LocalCercaniaFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyLocalCercaniaRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            //recyclerView.setAdapter(new MyLocalCercaniaRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }
@@ -106,6 +104,6 @@ public class LocalCercaniaFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction();
     }
 }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "478362756485",
+    "firebase_url": "https://bocatapp-4d34c.firebaseio.com",
+    "project_id": "bocatapp-4d34c",
+    "storage_bucket": "bocatapp-4d34c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478362756485:android:baa5233a12307d047fd0ec",
+        "android_client_info": {
+          "package_name": "com.salesianostriana.dam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "478362756485-et5e9cfei9eiulgtg9j7qc8qnno3aev2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salesianostriana.dam",
+            "certificate_hash": "592ee3dbe8dce427d57602007a707e0b4a090736"
+          }
+        },
+        {
+          "client_id": "478362756485-cvbgd0mnvs6viik1ql1ngqjuoa3k9odo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJjitm_1p_b1vRxxJghZOWPSjV82JhL4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "478362756485-cvbgd0mnvs6viik1ql1ngqjuoa3k9odo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

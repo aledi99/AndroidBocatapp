@@ -8,21 +8,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.salesianostriana.dam.LocalCercaniaFragment.OnListFragmentInteractionListener;
-import com.salesianostriana.dam.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyLocalCercaniaRecyclerViewAdapter extends RecyclerView.Adapter<MyLocalCercaniaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Establecimiento> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyLocalCercaniaRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyLocalCercaniaRecyclerViewAdapter(List<Establecimiento> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,7 +35,6 @@ public class MyLocalCercaniaRecyclerViewAdapter extends RecyclerView.Adapter<MyL
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mContentView.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +42,7 @@ public class MyLocalCercaniaRecyclerViewAdapter extends RecyclerView.Adapter<MyL
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    //mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
         });
@@ -59,7 +56,7 @@ public class MyLocalCercaniaRecyclerViewAdapter extends RecyclerView.Adapter<MyL
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Establecimiento mItem;
 
         public ViewHolder(View view) {
             super(view);

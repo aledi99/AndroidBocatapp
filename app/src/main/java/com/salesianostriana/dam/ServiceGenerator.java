@@ -3,24 +3,16 @@ package com.salesianostriana.dam;
 import android.text.TextUtils;
 
 
-
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Credentials;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
-    public static final String BASE_URL = "https://localhost:9000";
+    public static final String BASE_URL = "https://bocatapi.herokuapp.com";
 
     private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS);
 
@@ -51,43 +43,9 @@ public class ServiceGenerator {
         }
 
         return createService(serviceClass, null);
-    }
-
-    /*public static <S> S createService(Class<S> serviceClass, final String authToken){
-        if(!TextUtils.isEmpty(authToken)){
-            //AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
-
-            /*if(!httpClient.interceptors().contains(interceptor)){
-                OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-                httpClientBuilder.addInterceptor(new Interceptor() {
-                    @NotNull
-                    @Override
-                    public Response intercept(@NotNull Chain chain) throws IOException {
-                        Request original = chain.request();
-                        HttpUrl originalHttpUrl = original.url();
-
-                        HttpUrl url = originalHttpUrl.newBuilder()
-                                .addQueryParameter("access_token", "elpabloesunchaquetitasyeltroncosounfatiguitas")
-                                .build();
-
-                        Request.Builder requestBuilder = original.newBuilder()
-                                .url(url);
-
-                        Request request = requestBuilder.build();
-                        return chain.proceed(request);
-                    }
-                });
-
-                httpClientBuilder.addInterceptor(interceptor);
-                httpClientBuilder.addInterceptor(logging);
-
-                builder.client(httpClientBuilder.build());
-                retrofit = builder.build();
-            }
-        }
-
-        return retrofit.create(serviceClass);
     }*/
+
+
 
 
 

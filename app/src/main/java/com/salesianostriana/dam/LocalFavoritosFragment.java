@@ -12,17 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.salesianostriana.dam.dummy.DummyContent;
-import com.salesianostriana.dam.dummy.DummyContent.DummyItem;
 
-import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class LocalFavoritosFragment extends Fragment {
 
     // TODO: Customize parameter argument names
@@ -71,7 +62,7 @@ public class LocalFavoritosFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            //recyclerView.setAdapter(new MyEstablecimientoRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }
@@ -106,6 +97,6 @@ public class LocalFavoritosFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction();
     }
 }
