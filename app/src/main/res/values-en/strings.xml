@@ -7,4 +7,7 @@
     <string name="password">Password</string>
     <string name="re_password">Repeat Password</string>
     <string name="age">Age</string>
+    <string name="order">ORDER</string>
+    <string name="total">TOTAL</string>
+    <string name="payment">PAYMENT</string>
 </resources>

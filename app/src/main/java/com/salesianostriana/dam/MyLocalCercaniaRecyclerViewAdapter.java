@@ -36,6 +36,7 @@ public class MyLocalCercaniaRecyclerViewAdapter extends RecyclerView.Adapter<MyL
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
