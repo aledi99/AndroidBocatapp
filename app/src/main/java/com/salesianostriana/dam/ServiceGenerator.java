@@ -43,8 +43,11 @@ public class ServiceGenerator {
         return createService(serviceClass, null);
     }
 
+
+
     public static <S> S createService(
             Class<S> serviceClass, final String authToken) {
+        /*
         if (!TextUtils.isEmpty(authToken)) {
             BasicAuthenticationInterceptor interceptor =
                     new BasicAuthenticationInterceptor(authToken);
@@ -56,7 +59,7 @@ public class ServiceGenerator {
                 retrofit = builder.build();
             }
         }
-
+*/
         return retrofit.create(serviceClass);
     }
 

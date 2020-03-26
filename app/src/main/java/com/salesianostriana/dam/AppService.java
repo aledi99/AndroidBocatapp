@@ -19,7 +19,7 @@ public interface AppService {
     @POST("/oauth/token")
     Call<RespuestaToken> login(
         @Field("client_id") String clientId,
-        @Field("email") String email,
+        @Field("username") String email,
         @Field("password") String pswd,
         @Field("grant_type") String password,
         @Header("Authorization") String authorization
