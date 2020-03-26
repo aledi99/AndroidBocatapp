@@ -3,6 +3,7 @@ package com.salesianostriana.dam;
 
 import java.util.List;
 
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -10,14 +11,15 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface AppService {
 
     @FormUrlEncoded
     @POST("/oauth/token")
-    Call<ResponseBody> login(
+    Call<RespuestaToken> login(
         @Field("client_id") String clientId,
-        @Field("username") String username,
+        @Field("email") String email,
         @Field("password") String pswd,
         @Field("grant_type") String password,
         @Header("Authorization") String authorization
@@ -25,10 +27,13 @@ public interface AppService {
     );
 
     @GET("/api/local")
-    Call<List<EstablecimientoReponse>> listaLocalesCercanos();
+    Call<List<Establecimiento>> listaLocalesCercanos();
+
+    @GET("/downloadFile/{fileName:.+}")
+    Call<ResponseBody> downImage(@Path("fileName") String fileName);
 
     @GET("/api/local/{id}")
-    Call<EstablecimientoReponse> getOneLocalId();
+    Call<Establecimiento> getOneLocalId();
 
     @FormUrlEncoded
     @POST("/client/register")
@@ -41,6 +46,8 @@ public interface AppService {
     @FormUrlEncoded
     @POST("/gerente/register")
     Call<UserResponse> registerGerente();
+
+
 
 
 

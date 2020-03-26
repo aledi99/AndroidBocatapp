@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ import com.salesianostriana.dam.commons.SharedPreferencesManager;
 import java.util.HashMap;
 import java.util.Map;
 
+import jp.co.cyberagent.android.gpuimage.filter.GPUImageSwirlFilter;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,13 +47,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
 
     private static Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl("https://bocatapi.herokuapp.com")
+            .baseUrl("http://localhost:9000")
             .addConverterFactory(GsonConverterFactory.create());
     public static Retrofit retrofit = builder.build();
 
     EditText email,password;
     Button btnLogin;
-    String clientId ="bocatapp-rule-5",grant_type = "password", authorization = "Basic Ym9jYXRhcHAtcnVsZS01OnNlY3JldA==";
+    String clientId ="bocatapp-rule-5",grant_type = "password";
     ImageView logo;
 
     private SignInButton signInButton;
@@ -90,11 +92,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 executeLoginForm(
-                        clientId,
-                        email.getText().toString(),
-                        password.getText().toString(),
-                        grant_type,
-                        authorization
 
                 );
             }
@@ -111,32 +108,29 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void executeLoginForm(String clientId, String username, String pswd, String password,String authorization){
-        AppService appService = retrofit.create(AppService.class);
+    private void executeLoginForm(){
+        AppService service = ServiceGenerator.createService(AppService.class, email.getText().toString(), password.getText().toString());
+        String authorization = "Basic Ym9jYXRhcHAtcnVsZS01OnNlY3JldA==";
 
-        Call<ResponseBody> call = appService.login(
-                clientId,
-                username,
-                pswd,
-                password,
-                authorization
-        );
-
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<RespuestaToken> call = service.login(clientId,email.getText().toString(),password.getText().toString(),grant_type,authorization);
+        call.enqueue(new Callback<RespuestaToken>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<RespuestaToken> call, Response<RespuestaToken> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "logeado correctamente", Toast.LENGTH_SHORT).show();
-                    //Intent i = new Intent(LoginActivity.this,MainActivity.class);
-                    //startActivity(i);
+                    //SharedPreferencesManager.setStringValue("access_token",response.body().getAccess_token());
+                    //Log.d("access_token", response.body().getAccess_token());
+                    Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(i);
                 }else{
+                    Log.d("error_login", String.valueOf(response.body()));
                     Toast.makeText(LoginActivity.this, "Email y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
 
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<RespuestaToken> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
 
             }
