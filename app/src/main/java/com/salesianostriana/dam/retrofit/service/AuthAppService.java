@@ -1,4 +1,4 @@
-package com.salesianostriana.dam;
+package com.salesianostriana.dam.retrofit.service;
 
 
 import okhttp3.ResponseBody;
@@ -8,7 +8,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
-public interface AppService {
+public interface AuthAppService {
 
     @FormUrlEncoded
     @POST("/oauth/token")

@@ -1,4 +1,4 @@
-package com.salesianostriana.dam;
+package com.salesianostriana.dam.retrofit.servicegenerator;
 
 import android.text.TextUtils;
 
@@ -19,7 +19,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ServiceGenerator {
+public class LoginServiceGenerator {
     public static final String BASE_URL = "https://localhost:9000";
 
     private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS);
@@ -40,11 +40,11 @@ public class ServiceGenerator {
 
     public static Retrofit retrofit = null;
 
-    /*public static <S> S createService(Class<S> serviceClass) {
+   /* public static <S> S createService(Class<S> serviceClass) {
         return createService(serviceClass, null, null);
     }
 
-    /*public static <S> S createService(Class<S> serviceClass, String username, String password){
+    public static <S> S createService(Class<S> serviceClass, String username, String password){
         if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)){
             String authToken = Credentials.basic(username, password);
             return createService(serviceClass, authToken);
@@ -53,9 +53,9 @@ public class ServiceGenerator {
         return createService(serviceClass, null);
     }
 
-    /*public static <S> S createService(Class<S> serviceClass, final String authToken){
+    public static <S> S createService(Class<S> serviceClass, final String authToken){
         if(!TextUtils.isEmpty(authToken)){
-            //AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
+            AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
 
             /*if(!httpClient.interceptors().contains(interceptor)){
                 OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -87,8 +87,8 @@ public class ServiceGenerator {
         }
 
         return retrofit.create(serviceClass);
-    }*/
-
+    }
+    */
 
 
 

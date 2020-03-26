@@ -2,29 +2,30 @@ package com.salesianostriana.dam;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.salesianostriana.dam.CategoriaFragment.ICategoriaListener;
 import com.salesianostriana.dam.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link ICategoriaListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCategoriaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final ICategoriaListener mListener;
+    private List<String> mValues;
+    private ICategoriaListener mListener;
+    private Context ctx;
 
-    public MyCategoriaRecyclerViewAdapter(List<DummyItem> items, ICategoriaListener listener) {
+    public MyCategoriaRecyclerViewAdapter(List<String> items, ICategoriaListener listener, Context context) {
         mValues = items;
         mListener = listener;
+        this.ctx = context;
     }
 
     @Override
@@ -37,19 +38,21 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.tvName.setText(holder.mItem);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        switch (holder.mItem) {
+            case "Bocateria":
+                Glide.with(ctx).load("https://www.asesorexcelente.com/Imagenes/BlogNoticias/bocateria.jpg").into(holder.ivPhoto);
+                break;
+
+        }
+
+
+    }
+
+    public void setData(List<String> result) {
+        this.mValues = result;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -59,20 +62,19 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView tvName;
+        public final TextView tvResults;
+        public final ImageView ivPhoto;
+        public String mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+
+            tvName = view.findViewById(R.id.textViewName);
+            tvResults = view.findViewById(R.id.textViewResults);
+            ivPhoto = view.findViewById(R.id.imageViewCatName);
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
     }
 }

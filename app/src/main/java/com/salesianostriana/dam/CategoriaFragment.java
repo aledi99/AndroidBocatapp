@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,13 +14,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.salesianostriana.dam.data.viewModel.CategoriaViewModel;
 import com.salesianostriana.dam.dummy.DummyContent.DummyItem;
+import com.salesianostriana.dam.retrofit.service.AppService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CategoriaFragment extends Fragment {
 
     private int mColumnCount = 1;
     private ICategoriaListener mListener;
+    private CategoriaViewModel categoriaViewModel;
+    private List<String> categoriaList;
+    private MyCategoriaRecyclerViewAdapter adapter;
+    private Context context;
 
 
     public CategoriaFragment() {
@@ -28,7 +39,8 @@ public class CategoriaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        categoriaList = new ArrayList<>();
+        categoriaViewModel = ViewModelProviders.of(getActivity()).get(CategoriaViewModel.class);
     }
 
     @Override
@@ -38,7 +50,7 @@ public class CategoriaFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
+             context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -46,6 +58,10 @@ public class CategoriaFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
+            adapter = new MyCategoriaRecyclerViewAdapter(categoriaList, mListener, context);
+            recyclerView.setAdapter(adapter);
+
+            loadCategories();
 
         }
         return view;
@@ -69,8 +85,20 @@ public class CategoriaFragment extends Fragment {
         mListener = null;
     }
 
+    public void loadCategories() {
+        categoriaViewModel.getCategories().observe(getActivity(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                categoriaList = strings;
+                //Falta comparar por distancias
+                adapter.setData(categoriaList);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
 
     public interface ICategoriaListener {
         void onCategoriaClick(DummyItem item);
     }
+
 }
