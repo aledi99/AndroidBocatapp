@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.salesianostriana.dam.commons.MyApp;
 
 
 import java.util.ArrayList;
@@ -27,14 +28,14 @@ import retrofit2.Response;
 
 public class MyEstablecimientoRecyclerViewAdapter extends RecyclerView.Adapter<MyEstablecimientoRecyclerViewAdapter.ViewHolder> {
 
-    private  List<Establecimiento> mValues;
-    private EstablecimientoViewModel establecimientoViewModel;
+    private  List<EstablecimientoResponse> mValues;
     private Context context;
-    AppService appService;
+    AppService appService = ServiceGenerator.createServiceEstablecimiento(AppService.class);
     private String filename;
+    private EstablecimientoViewModel establecimientoViewModel;
 
 
-    public MyEstablecimientoRecyclerViewAdapter(List<Establecimiento> items, EstablecimientoViewModel establecimientoViewModel , Context context) {
+    public MyEstablecimientoRecyclerViewAdapter(List<EstablecimientoResponse> items,EstablecimientoViewModel establecimientoViewModel, Context context) {
         this.mValues = items;
         this.establecimientoViewModel = establecimientoViewModel;
         this.context = context;
@@ -43,7 +44,7 @@ public class MyEstablecimientoRecyclerViewAdapter extends RecyclerView.Adapter<M
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_local_cercania_list, parent, false);
+                .inflate(R.layout.fragment_local_cercania, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,9 +52,13 @@ public class MyEstablecimientoRecyclerViewAdapter extends RecyclerView.Adapter<M
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.nombre.setText(holder.mItem.getNombre());
-        holder.categoria.setText(holder.mItem.getCategoria());
+        if(holder.mItem.getCategoria() != null) {
+            holder.categoria.setText(holder.mItem.getCategoria().getNombre());
+        }else{
+            Toast.makeText(context, "CATEGORIA NULL", Toast.LENGTH_SHORT).show();
+        }
 
-
+        if(holder.mItem.getImagen() != null) {
             Call<ResponseBody> call = appService.downImage(holder.mItem.getImagen().getNombreFichero());
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -78,11 +83,28 @@ public class MyEstablecimientoRecyclerViewAdapter extends RecyclerView.Adapter<M
                 }
             });
 
+        }else{
+            Toast.makeText(context, "IMAGEN NULL", Toast.LENGTH_SHORT).show();
+        }
 
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != establecimientoViewModel) {
+                    establecimientoViewModel.setIdEstablecimientoSeleccionado(holder.mItem.getId());
+                }
+            }
+
+        });
 
     }
 
-    public void setData(List<Establecimiento> list){
+
+
+
+
+
+    public void setData(List<EstablecimientoResponse> list){
         if(this.mValues != null) {
             this.mValues.clear();
         } else {
@@ -102,7 +124,7 @@ public class MyEstablecimientoRecyclerViewAdapter extends RecyclerView.Adapter<M
         public final TextView nombre;
         public final TextView categoria;
         public final ImageView imagenPortada;
-        public Establecimiento mItem;
+        public EstablecimientoResponse mItem;
 
         public ViewHolder(View view) {
             super(view);

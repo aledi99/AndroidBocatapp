@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.salesianostriana.dam.commons.MyApp;
 import com.salesianostriana.dam.commons.SharedPreferencesManager;
 
 import java.util.ArrayList;
@@ -31,11 +34,11 @@ public class LocalCercaniaFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private EstablecimientoListener mListener;
     private List listAllLocals;
     Context context;
     RecyclerView recyclerView;
-    EstablecimientoViewModel establecimientoViewModel;
+    private EstablecimientoViewModel establecimientoViewModel;
     MyEstablecimientoRecyclerViewAdapter myEstablecimientoRecyclerViewAdapter;
 
     /**
@@ -62,6 +65,8 @@ public class LocalCercaniaFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        establecimientoViewModel = ViewModelProviders.of(getActivity()).get(EstablecimientoViewModel.class);
     }
 
     @Override
@@ -78,7 +83,7 @@ public class LocalCercaniaFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            //recyclerView.setAdapter(new MyLocalCercaniaRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            loadAlllocals();
         }
         return view;
     }
@@ -93,12 +98,12 @@ public class LocalCercaniaFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
 
-            myEstablecimientoRecyclerViewAdapter = new MyEstablecimientoRecyclerViewAdapter(listAllLocals, establecimientoViewModel, getActivity());
+            myEstablecimientoRecyclerViewAdapter = new MyEstablecimientoRecyclerViewAdapter(listAllLocals,establecimientoViewModel, MyApp.getContext());
             recyclerView.setAdapter(myEstablecimientoRecyclerViewAdapter);
 
-            establecimientoViewModel.listAlllocals().observe(getActivity(), new Observer<List<Establecimiento>>() {
+            establecimientoViewModel.listAlllocals().observe(getActivity(), new Observer<List<EstablecimientoResponse>>() {
                 @Override
-                public void onChanged(List<Establecimiento> allLocals) {
+                public void onChanged(List<EstablecimientoResponse> allLocals) {
                     listAllLocals.addAll(allLocals);
                     myEstablecimientoRecyclerViewAdapter.notifyDataSetChanged();
                 }
@@ -111,8 +116,8 @@ public class LocalCercaniaFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof EstablecimientoListener) {
+            mListener = (EstablecimientoListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");

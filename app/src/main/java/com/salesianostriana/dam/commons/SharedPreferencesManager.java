@@ -1,7 +1,10 @@
 package com.salesianostriana.dam.commons;
 
+
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.salesianostriana.dam.commons.MyApp;
 
 public class SharedPreferencesManager {
 

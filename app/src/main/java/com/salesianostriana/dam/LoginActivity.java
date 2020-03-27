@@ -31,13 +31,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.salesianostriana.dam.commons.Constants;
+import com.salesianostriana.dam.commons.MyApp;
 import com.salesianostriana.dam.commons.SharedPreferencesManager;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import jp.co.cyberagent.android.gpuimage.filter.GPUImageSwirlFilter;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     String clientId ="bocatapp-rule-5",grant_type = "password";
     ImageView logo;
+
 
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
@@ -117,9 +118,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RespuestaToken> call, Response<RespuestaToken> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "logeado correctamente", Toast.LENGTH_SHORT).show();
-                    //SharedPreferencesManager.setStringValue("access_token",response.body().getAccess_token());
-                    //Log.d("access_token", response.body().getAccess_token());
+                    Toast.makeText(MyApp.getContext(), "logeado correctamente", Toast.LENGTH_SHORT).show();
+                    Log.d("token", response.body().getAccess_token());
+                    SharedPreferencesManager.setStringValue(Constants.TOKEN, response.body().getAccess_token());
+
+
                     Intent i = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(i);
                 }else{

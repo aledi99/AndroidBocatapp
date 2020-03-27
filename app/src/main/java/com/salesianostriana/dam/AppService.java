@@ -26,14 +26,14 @@ public interface AppService {
 
     );
 
-    @GET("/api/local")
-    Call<List<Establecimiento>> listaLocalesCercanos();
+    @GET("/api/local/")
+    Call<List<EstablecimientoResponse>> listaLocalesCercanos();
 
-    @GET("/downloadFile/{fileName:.+}")
+    @GET("/downloadFile/{fileName}")
     Call<ResponseBody> downImage(@Path("fileName") String fileName);
 
     @GET("/api/local/{id}")
-    Call<Establecimiento> getOneLocalId();
+    Call<EstablecimientoResponse> getOneLocalId(@Path("id") String id);
 
     @FormUrlEncoded
     @POST("/client/register")
